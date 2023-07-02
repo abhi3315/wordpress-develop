@@ -50,4 +50,9 @@ jobs:
 
     steps:
         - name: Comment on third party libraries changed_files
-          run: echo ${{ needs.get-third-party-changed-files.outputs.third_party_libraries }}
+          uses: peter-evans/create-or-update-comment@v3
+          with:
+            issue-number: ${{ github.event.pull_request.number }}
+            body: |
+              @${{ github.actor }} The following third party libraries have been modified in this pull request:
+              ${{ needs.get-third-party-changed-files.outputs.third_party_libraries }}
