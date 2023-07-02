@@ -23,6 +23,8 @@ jobs:
         id: directories
         run: |
           MODIFIED_FILES="${{ steps.files.outputs.modified_files }}"
+          echo $MODIFIED_FILES
+          echo "Hello"
           DIRECTORIES=(
             "src/wp-includes/ID3"
             "src/wp-includes/IXR"
@@ -38,7 +40,6 @@ jobs:
               break
             fi
           done
-          echo $MODIFIED_FILES
 
       - name: Comment on modified files
         uses: peter-evans/create-or-update-comment@v3
