@@ -16,6 +16,10 @@ class IXR_Message
     var $methodName  = '';
     var $params      = array();
 
+
+
+	
+
     // Current variable stacks
     var $_arraystructs = array();   // The stack used to keep track of the current array/struct
     var $_arraystructstypes = array(); // Stack keeping track of if things are structs or array

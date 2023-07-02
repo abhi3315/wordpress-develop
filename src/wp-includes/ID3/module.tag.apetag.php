@@ -18,6 +18,10 @@ if (!defined('GETID3_INCLUDEPATH')) { // prevent path-exposing attacks that acce
 	exit;
 }
 
+
+
+
+
 class getid3_apetag extends getid3_handler
 {
 	/**
