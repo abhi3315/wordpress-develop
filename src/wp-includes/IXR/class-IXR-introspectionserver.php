@@ -13,6 +13,10 @@ class IXR_IntrospectionServer extends IXR_Server
 
 	/**
 	 * PHP5 constructor.
+	 * 
+	 * 
+	 * 
+	 * 
 	 */
     function __construct()
     {

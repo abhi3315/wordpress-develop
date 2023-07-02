@@ -10,6 +10,10 @@ class IXR_Base64
 {
     var $data;
 
+
+
+	
+
 	/**
 	 * PHP5 constructor.
 	 */
