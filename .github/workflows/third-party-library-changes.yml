@@ -46,7 +46,6 @@ jobs:
 
           for LIBRARY in "${THIRD_PARTY_CHANGED_FILES[@]}"; do
             echo "- $LIBRARY" >> $GITHUB_OUTPUT
-            echo "" >> $GITHUB_OUTPUT
           done
 
   comment-on-pull-request:
