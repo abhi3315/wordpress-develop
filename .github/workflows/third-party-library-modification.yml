@@ -13,14 +13,12 @@ jobs:
     name: Get changed files
     permissions:
       pull-requests: read
-
+    outputs:
+       third_party_libraries: ${{ steps.modified_third_party_libraries.outputs.third_party_libraries }}
     steps:
         - name: Get changed files
           id: changed_files
           uses: tj-actions/changed-files@v37
-
-        - name: Get changed files output @REM Echo the output of the action for debugging purposes
-          run: echo "${{ steps.changed_files.outputs.all_changed_files }}"
 
         - name: Get modified third party libraries
           id: modified_third_party_libraries
@@ -41,10 +39,7 @@ jobs:
                 MODIFIED_THIRD_PARTY_LIBRARIES+=("${LIBRARY}")
               fi
             done
-            echo "third_party_libraries=${MODIFIED_THIRD_PARTY_LIBRARIES[*]}" >> $GITHUB_ENV
-
-        - name: Get modified third party libraries output @REM Echo the output of the action for debugging purposes
-          run: echo ${{ env.third_party_libraries }}
+            echo "third_party_libraries=${MODIFIED_THIRD_PARTY_LIBRARIES[*]}" >> $GITHUB_OUTPUT
 
   comment-third-party-changed-files:
     needs: get-third-party-changed-files
@@ -54,10 +49,5 @@ jobs:
       pull-requests: write
 
     steps:
-        - name: Comment on third party libraries changes
-          uses: peter-evans/create-or-update-comment@v3
-          with:
-            issue-number: ${{ github.event.pull_request.number }}
-            body: |
-              @${{ github.actor }} The following third party libraries have been modified in this pull request:
-              ${{ env.third_party_libraries }}
+        - name: Comment on third party libraries changed_files
+          run: echo ${{ needs.get-third-party-changed-files.outputs.third_party_libraries }}
