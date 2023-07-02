@@ -45,4 +45,3 @@ jobs:
 
         - name: Get modified third party libraries output @REM Echo the output of the action for debugging purposes
           run: echo "${{ steps.modified_third_party_libraries.outputs.modified_third_party_libraries }}"
-	
