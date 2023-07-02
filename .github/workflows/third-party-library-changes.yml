@@ -1,4 +1,4 @@
-name: Third party library changes
+name: Third Party Library Changes
 on:
   pull_request:
     branches:
@@ -35,7 +35,7 @@ jobs:
           ALL_CHANGED_FILES="${{ steps.changed_files.outputs.all_changed_files }}"
           ALL_CHANGED_FILES=$ALL_CHANGED_FILES | tr '\n' ' '
           THIRD_PARTY_LIBRARIES=${{ env.THIRD_PARTY_LIBRARIES }}
-          THIRD_PARTY_CHANGED_FILES = ()
+          THIRD_PARTY_CHANGED_FILES=()
 
           for LIBRARY in $THIRD_PARTY_LIBRARIES; do
             for FILE in $ALL_CHANGED_FILES; do
