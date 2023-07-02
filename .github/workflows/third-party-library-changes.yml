@@ -32,15 +32,19 @@ jobs:
       - name: Get modified third party libraries
         id: modified_libraries
         run: |
-          MODIFIED_FILES = "${{ steps.changed_files.outputs.all_changed_files }}"
+          ALL_CHANGED_FILES = "${{ steps.changed_files.outputs.all_changed_files }}"
           THIRD_PARTY_LIBRARIES = ${{ env.THIRD_PARTY_LIBRARIES }}
-          MODIFIED_FILES = ()
-          for LIBRARY in "${THIRD_PARTY_LIBRARIES[@]}"; do
-            if [[ "${MODIFIED_FILES}" == *"${LIBRARY}"* ]]; then
-              MODIFIED_FILES+=("- ${MODIFIED_FILES}")
-            fi
+          THIRD_PARTY_CHANGED_FILES = ()
+
+          for LIBRARY in $THIRD_PARTY_LIBRARIES; do
+            for FILE in $ALL_CHANGED_FILES; do
+              if [[ $FILE == $LIBRARY* ]]; then
+            	THIRD_PARTY_CHANGED_FILES+=("$FILE")
+              fi
+            done
           done
-          echo "file_list=${MODIFIED_FILES[*]}" >> $GITHUB_OUTPUT
+
+          echo "file_list=${THIRD_PARTY_CHANGED_FILES[*]}" >> $GITHUB_OUTPUT
 
   comment-on-pull-request:
     needs: third-party-changed-files
