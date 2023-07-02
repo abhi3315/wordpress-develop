@@ -17,8 +17,7 @@ jobs:
 
       - name: List modified files
         id: files
-        run: |
-          echo "::set-output name=modified_files::$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})"
+        run: echo "modified_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})" >> $GITHUB_OUTPUT
 
       - name: Check if files modified under specific directories
         id: directories
@@ -39,6 +38,7 @@ jobs:
               break
             fi
           done
+          echo $MODIFIED_FILES
 
       - name: Comment on modified files
         uses: peter-evans/create-or-update-comment@v3
