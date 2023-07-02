@@ -44,7 +44,7 @@ jobs:
             done
           done
 
-          echo -e "file_list=${THIRD_PARTY_CHANGED_FILES}" >> $GITHUB_OUTPUT
+          echo "file_list=${THIRD_PARTY_CHANGED_FILES}" >> $GITHUB_OUTPUT
 
   comment-on-pull-request:
     needs: third-party-changed-files
