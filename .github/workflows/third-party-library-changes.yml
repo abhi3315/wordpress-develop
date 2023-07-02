@@ -40,7 +40,7 @@ jobs:
           for LIBRARY in $THIRD_PARTY_LIBRARIES; do
             for FILE in $ALL_CHANGED_FILES; do
               if [[ $FILE == $LIBRARY* ]]; then
-            	THIRD_PARTY_CHANGED_FILES+=("$FILE")
+            	THIRD_PARTY_CHANGED_FILES+=("- $FILE")
               fi
             done
           done
