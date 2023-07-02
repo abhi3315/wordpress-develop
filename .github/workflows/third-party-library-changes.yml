@@ -48,6 +48,7 @@ jobs:
           for LIBRARY in "${THIRD_PARTY_CHANGED_FILES[@]}"; do
             echo "- $LIBRARY" >> $GITHUB_OUTPUT
           done
+          echo 'EOF' >> $GITHUB_OUTPUT
 
   comment-on-pull-request:
     needs: third-party-changed-files
