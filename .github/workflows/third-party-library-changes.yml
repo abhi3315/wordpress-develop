@@ -44,7 +44,7 @@ jobs:
             done
           done
 
-          echo "file_list<<EOF" >> $GITHUB_ENV
+          echo "file_list<<EOF" >> $GITHUB_OUTPUT
           for LIBRARY in "${THIRD_PARTY_CHANGED_FILES[@]}"; do
             echo "- $LIBRARY" >> $GITHUB_OUTPUT
           done
