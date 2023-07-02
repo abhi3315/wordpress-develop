@@ -34,17 +34,17 @@ jobs:
         run: |
           ALL_CHANGED_FILES="${{ steps.changed_files.outputs.all_changed_files }}"
           THIRD_PARTY_LIBRARIES=${{ env.THIRD_PARTY_LIBRARIES }}
-          THIRD_PARTY_CHANGED_FILES=()
+          THIRD_PARTY_CHANGED_FILES=""
 
-          for LIBRARY in "$THIRD_PARTY_LIBRARIES[@]"; do
-            for FILE in $FILE_ARRAY; do
-              if [[ "$FILE" == "$LIBRARY"* ]]; then
-            	THIRD_PARTY_CHANGED_FILES+=("- $FILE")
+          for LIBRARY in "${THIRD_PARTY_LIBRARIES[@]}"; do
+            for FILE in $$ALL_CHANGED_FILES; do
+              if [[ $FILE == $LIBRARY* ]]; then
+            	THIRD_PARTY_CHANGED_FILES+="\n- ${FILE}"
               fi
             done
           done
 
-          echo "file_list=${THIRD_PARTY_CHANGED_FILES[*]}" >> $GITHUB_OUTPUT
+          echo -e "file_list=${THIRD_PARTY_CHANGED_FILES}" >> $GITHUB_OUTPUT
 
   comment-on-pull-request:
     needs: third-party-changed-files
