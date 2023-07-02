@@ -13,7 +13,7 @@ jobs:
     permissions:
       pull-requests: read
     outputs:
-      file_list: ${{ steps.modified_libraries.outputs.file_list }}
+      file_list: ${{ steps.modified_libraries.outputs }}
     env:
       THIRD_PARTY_LIBRARIES: (
         "src/wp-includes/ID3"
@@ -34,17 +34,20 @@ jobs:
         run: |
           ALL_CHANGED_FILES="${{ steps.changed_files.outputs.all_changed_files }}"
           THIRD_PARTY_LIBRARIES=${{ env.THIRD_PARTY_LIBRARIES }}
-          THIRD_PARTY_CHANGED_FILES=""
+          THIRD_PARTY_CHANGED_FILES=()
 
           for LIBRARY in "${THIRD_PARTY_LIBRARIES[@]}"; do
             for FILE in $ALL_CHANGED_FILES; do
               if [[ $FILE == $LIBRARY* ]]; then
-            	THIRD_PARTY_CHANGED_FILES+="\n- ${FILE}"
+            	THIRD_PARTY_CHANGED_FILES+=("${LIBRARY}")
               fi
             done
           done
 
-          echo "file_list=${THIRD_PARTY_CHANGED_FILES}" >> $GITHUB_OUTPUT
+          for LIBRARY in "${THIRD_PARTY_CHANGED_FILES[@]}"; do
+            echo "- $LIBRARY" >> $GITHUB_OUTPUT
+            echo "" >> $GITHUB_OUTPUT
+          done
 
   comment-on-pull-request:
     needs: third-party-changed-files
