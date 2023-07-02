@@ -41,10 +41,10 @@ jobs:
                 MODIFIED_THIRD_PARTY_LIBRARIES+=("${LIBRARY}")
               fi
             done
-            echo "third_party_libraries=${MODIFIED_THIRD_PARTY_LIBRARIES[*]}" >> $GITHUB_OUTPUT
+            echo "third_party_libraries=${MODIFIED_THIRD_PARTY_LIBRARIES[*]}" >> $GITHUB_ENV
 
         - name: Get modified third party libraries output @REM Echo the output of the action for debugging purposes
-          run: echo ${{ steps.modified_third_party_libraries.outputs.third_party_libraries }}
+          run: echo ${{ env.third_party_libraries }}
 
   comment-third-party-changed-files:
     needs: get-third-party-changed-files
@@ -60,4 +60,4 @@ jobs:
             issue-number: ${{ github.event.pull_request.number }}
             body: |
               @${{ github.actor }} The following third party libraries have been modified in this pull request:
-              ${{ needs.get-third-party-changed-files.outputs }}
+              ${{ needs.get-third-party-changed-files.outputs.third_party_libraries }}
