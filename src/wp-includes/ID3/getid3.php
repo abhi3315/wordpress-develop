@@ -21,6 +21,8 @@ if (!defined('ENT_SUBSTITUTE')) { // PHP5.3 adds ENT_IGNORE, PHP5.4 adds ENT_SUB
 	define('ENT_SUBSTITUTE', (defined('ENT_IGNORE') ? ENT_IGNORE : 8));
 }
 
+
+
 /*
 https://www.getid3.org/phpBB3/viewtopic.php?t=2114
 If you are running into a the problem where filenames with special characters are being handled
