@@ -33,13 +33,12 @@ jobs:
         id: modified_libraries
         run: |
           ALL_CHANGED_FILES="${{ steps.changed_files.outputs.all_changed_files }}"
-          read -ra FILE_ARRAY <<< "$ALL_CHANGED_FILES"
           THIRD_PARTY_LIBRARIES=${{ env.THIRD_PARTY_LIBRARIES }}
           THIRD_PARTY_CHANGED_FILES=()
 
-          for LIBRARY in $THIRD_PARTY_LIBRARIES; do
+          for LIBRARY in "$THIRD_PARTY_LIBRARIES[@]"; do
             for FILE in $FILE_ARRAY; do
-              if [[ $FILE == $LIBRARY* ]]; then
+              if [[ "$FILE" == "$LIBRARY"* ]]; then
             	THIRD_PARTY_CHANGED_FILES+=("- $FILE")
               fi
             done
