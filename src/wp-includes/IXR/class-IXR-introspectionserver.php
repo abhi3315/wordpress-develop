@@ -11,6 +11,9 @@ class IXR_IntrospectionServer extends IXR_Server
     var $signatures;
     var $help;
 
+
+	
+
 	/**
 	 * PHP5 constructor.
 	 */

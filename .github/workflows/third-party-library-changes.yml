@@ -60,7 +60,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            Hey @${{ github.actor }} :wave:, It looks like you have modified the following third party libraries.
+            Hey @${{ github.actor }} :wave:, It looks like you have modified the following third party libraries:
 
             ${{ needs.third-party-changed-files.outputs.file_list }}
 

@@ -15,6 +15,9 @@ class IXR_Date {
     var $second;
     var $timezone;
 
+
+	
+
 	/**
 	 * PHP5 constructor.
 	 */
